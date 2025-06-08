@@ -1,0 +1,41 @@
+name: App deploy CICD
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      user: actions/checkout@v3
+
+    - name: Setup Nodejs
+      user: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install dependences
+      run: npm install
+
+    - name: Run test
+      run: npm test
+
+    - name: Build
+      run: npm run build
+
+  deploy-staging:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'ref/heads/develop'
+
+    steps:
+    - name:

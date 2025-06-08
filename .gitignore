@@ -1,4 +1,6 @@
-.env
-.env.*
-.github/workflows/nodejs-ci.yml
 node_modules/
+.env
+.env.development
+.env.production
+.env.staging
+bin/
